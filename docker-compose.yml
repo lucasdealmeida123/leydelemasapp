@@ -1,0 +1,24 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3001:3000"
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: leydelemasdb
+      POSTGRES_USER: ${POSTGRES_USER:-ldluser}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ldlpass}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
