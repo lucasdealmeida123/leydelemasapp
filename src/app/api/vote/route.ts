@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
   }
 
   const cleaned = phone.replace(/\D/g, "")
-  if (cleaned.length < 7 || cleaned.length > 15) {
+  if (cleaned.length < 10 || cleaned.length > 15) {
     return NextResponse.json({ error: "Número de teléfono inválido" }, { status: 400 })
   }
 

@@ -2,21 +2,25 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { Explainer } from "@/components/Explainer"
 
 const BORDER = "rgba(255,255,255,0.07)"
 const SURFACE = "#141825"
 
 export default function Home() {
-  const [step, setStep] = useState<"phone" | "vote">("phone")
+  const [step, setStep] = useState<"intro" | "phone" | "vote">("intro")
   const [phone, setPhone] = useState("")
   const [selected, setSelected] = useState<"acepta" | "no_acepta" | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const router = useRouter()
 
+  const phoneDigits = phone.replace(/\D/g, "")
+  const phoneReady = phoneDigits.length >= 10
+
   function handlePhoneContinue(e: React.FormEvent) {
     e.preventDefault()
-    if (!phone.trim()) return
+    if (!phoneReady) return
     setStep("vote")
   }
 
@@ -44,26 +48,31 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen flex flex-col" style={{ background: "#0B0E14" }}>
+    <main
+      className={
+        step === "intro" ? "min-h-dvh" : "min-h-screen flex flex-col"
+      }
+      style={{ background: step === "intro" ? "#07101C" : "#0B0E14" }}
+    >
 
-      {/* HEADER */}
-      <header className="px-5 py-3.5 shrink-0" style={{ borderBottom: `1px solid ${BORDER}` }}>
-        <div className="max-w-lg mx-auto flex items-center gap-3">
-          <div className="w-[3px] h-5 rounded-full" style={{ background: "#B6FF6E" }} />
-          <span className="font-black text-sm tracking-[0.14em] uppercase" style={{ color: "#B6FF6E" }}>
-            Loop Noticias
-          </span>
-        </div>
-      </header>
+      {step !== "intro" && (
+        <header className="px-5 py-3.5 shrink-0" style={{ borderBottom: `1px solid ${BORDER}` }}>
+          <div className="max-w-lg mx-auto flex items-center gap-3">
+            <div className="w-[3px] h-5 rounded-full" style={{ background: "#B6FF6E" }} />
+            <span className="font-black text-sm tracking-[0.14em] uppercase" style={{ color: "#B6FF6E" }}>
+              Loop Noticias
+            </span>
+          </div>
+        </header>
+      )}
 
-      {/* STEP 1 — PHONE */}
+      {step === "intro" && <Explainer onContinue={() => setStep("phone")} />}
+
+      {/* STEP 2 — PHONE */}
       {step === "phone" && (
         <section className="flex-1 flex flex-col max-w-lg mx-auto w-full px-5 py-8 pb-12">
 
           <div className="mb-8">
-            <p className="text-xs font-black uppercase tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.28)" }}>
-              Encuesta · Loop Noticias
-            </p>
             <h1 className="text-6xl font-black text-white leading-none mb-3">
               VOTÁ
             </h1>
@@ -95,25 +104,36 @@ export default function Home() {
                 onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)")}
                 autoFocus
                 required
+                inputMode="numeric"
               />
               <p className="text-xs mt-2" style={{ color: "rgba(255,255,255,0.22)" }}>
-                Solo se usa para evitar votos duplicados
+                {phoneDigits.length > 0 && phoneDigits.length < 10
+                  ? "Tiene que tener al menos 10 dígitos"
+                  : "Solo se usa para evitar votos duplicados"}
               </p>
             </div>
 
             <button
               type="submit"
-              disabled={!phone.trim()}
+              disabled={!phoneReady}
               className="w-full font-black text-base rounded-xl py-4 tracking-wide transition-all active:scale-95 disabled:opacity-40"
               style={{ background: "#B6FF6E", color: "#0B0E14" }}
             >
               Continuar →
             </button>
           </form>
+
+          <button
+            onClick={() => setStep("intro")}
+            className="text-sm text-center mt-5"
+            style={{ color: "rgba(255,255,255,0.2)" }}
+          >
+            ← Volver
+          </button>
         </section>
       )}
 
-      {/* STEP 2 — VOTE */}
+      {/* STEP 3 — VOTE */}
       {step === "vote" && (
         <section className="flex-1 flex flex-col max-w-lg mx-auto w-full px-5 py-8 pb-12">
 
@@ -140,7 +160,6 @@ export default function Home() {
           )}
 
           <div className="grid grid-cols-2 gap-4">
-            {/* SI */}
             <button
               onClick={() => !loading && handleVote("acepta")}
               disabled={loading}
@@ -150,18 +169,13 @@ export default function Home() {
                 borderColor: selected === "acepta" ? "rgba(74,222,128,0.6)" : "rgba(74,222,128,0.18)",
               }}
             >
-              <span className="text-5xl font-black leading-none" style={{ color: "#4ade80" }}>
-                SI
-              </span>
-              <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: "#4ade80" }}>
-                A favor
-              </span>
+              <span className="text-5xl font-black leading-none" style={{ color: "#4ade80" }}>SI</span>
+              <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: "#4ade80" }}>A favor</span>
               <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>
                 Los votos del mismo partido se suman para definir al ganador
               </p>
             </button>
 
-            {/* NO */}
             <button
               onClick={() => !loading && handleVote("no_acepta")}
               disabled={loading}
@@ -171,12 +185,8 @@ export default function Home() {
                 borderColor: selected === "no_acepta" ? "rgba(248,113,113,0.6)" : "rgba(248,113,113,0.18)",
               }}
             >
-              <span className="text-5xl font-black leading-none" style={{ color: "#f87171" }}>
-                NO
-              </span>
-              <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: "#f87171" }}>
-                En contra
-              </span>
+              <span className="text-5xl font-black leading-none" style={{ color: "#f87171" }}>NO</span>
+              <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: "#f87171" }}>En contra</span>
               <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>
                 Cada partido compite con un solo candidato, sin acumular votos
               </p>

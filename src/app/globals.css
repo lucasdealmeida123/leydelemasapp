@@ -16,3 +16,63 @@
     color: white;
   }
 }
+
+@keyframes lema-title-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes lema-from-left {
+  from { opacity: 0; transform: translateX(-42px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes lema-from-right {
+  from { opacity: 0; transform: translateX(42px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes lema-action-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+.lema-title { animation: lema-title-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.lema-from-left { animation: lema-from-left 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both; }
+.lema-from-right { animation: lema-from-right 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both; }
+.lema-action { animation: lema-action-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lema-title,
+  .lema-from-left,
+  .lema-from-right,
+  .lema-action {
+    animation: none;
+  }
+}
+
+.lema-board {
+  align-content: start;
+  grid-template-rows: auto auto auto auto;
+}
+
+/* Solo en pantalla ancha las tarjetas crecen. En una ventana alta no se estiran: eso dejaba el vacío de abajo. */
+@media (min-aspect-ratio: 5/4) {
+  .lema-screen {
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .lema-board {
+    flex: 1;
+    min-height: 0;
+  }
+}
+
+.vote-line {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 0.6rem;
+}
+
