@@ -40,6 +40,9 @@ export default function GraciasPage({ searchParams }: Props) {
           ¡Ya estás participando por un{" "}
           <span style={{ color: "#B6FF6E" }}>Smart TV de 60 pulgadas!</span>
         </p>
+        <p className="mt-3 text-lg font-black text-white">
+          Se sortea el 27 de noviembre
+        </p>
 
         <h2 className="mb-3 mt-10 text-lg font-black text-white">Seguí a Loop en todas las redes</h2>
         <ul className="flex flex-col">
