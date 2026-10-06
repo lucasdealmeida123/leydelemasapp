@@ -23,17 +23,17 @@ const CANDIDATES = [
 export function Explainer({ onContinue }: { onContinue: () => void }) {
   return (
     <section
-      className={`${montserrat.className} lema-screen flex min-h-dvh w-full flex-col px-[clamp(14px,1.8vw,28px)] py-[clamp(12px,1.6vh,20px)]`}
+      className={`${montserrat.className} lema-screen flex min-h-svh w-full flex-col px-[clamp(12px,2.4vw,28px)] py-[clamp(12px,1.8svh,20px)]`}
       style={{ background: INK }}
     >
-      <header className="lema-title shrink-0 pb-[clamp(48px,6.5vh,64px)] text-center">
-        <h1 className="text-[clamp(1.9rem,5.8vw,3.6rem)] font-black leading-none tracking-tight text-white">
+      <header className="lema-title shrink-0 pb-[clamp(14px,2.8svh,48px)] text-center">
+        <h1 className="text-[clamp(1.55rem,5.6vw,3.35rem)] font-black leading-none tracking-tight text-white">
           ¿Qué es la Ley de Lemas?
         </h1>
-        <div className="mt-[clamp(10px,1.4vh,16px)] flex items-center justify-center gap-3">
-          <span className="h-[2px] w-[clamp(28px,4vw,72px)] rounded-full" style={{ background: GOLD }} />
+        <div className="mt-[clamp(6px,1svh,14px)] flex items-center justify-center gap-3">
+          <span className="h-[2px] w-[clamp(18px,4vw,72px)] rounded-full" style={{ background: GOLD }} />
           <p
-            className="text-[clamp(13px,1.7vw,18px)] font-black tracking-[0.18em]"
+            className="whitespace-nowrap text-[clamp(12px,2.4vw,16px)] font-black tracking-[0.16em]"
             style={{ color: GOLD }}
           >
             LOOP NOTICIAS
@@ -44,14 +44,14 @@ export function Explainer({ onContinue }: { onContinue: () => void }) {
 
       <div className="lema-board grid grid-cols-2 items-stretch gap-x-[clamp(10px,1.2vw,18px)]">
         <article
-          className="lema-panel lema-from-left row-span-4 grid min-w-0 grid-rows-subgrid rounded-2xl border-2 p-[clamp(12px,1.4vw,18px)] pb-[clamp(16px,2vh,22px)]"
+          className="lema-panel lema-from-left row-span-4 grid min-w-0 grid-rows-subgrid rounded-2xl border-2 p-[clamp(8px,2vw,16px)]"
           style={{ borderColor: GOLD, background: "rgba(245,196,0,0.035)", gridTemplateRows: "subgrid" }}
         >
           <Pill color={GOLD} ink="#1A1400" icon={<PeopleIcon />}>
             CON LEY DE LEMAS
           </Pill>
 
-          <div className="self-start pt-[clamp(8px,1vh,12px)] space-y-[clamp(4px,0.6vh,8px)] text-[clamp(14px,1.7vw,18px)] font-medium leading-snug text-white">
+          <div className="lema-copy self-start space-y-[clamp(4px,0.9cqi,8px)] pt-[clamp(8px,1.4cqi,12px)] text-[clamp(12px,6.6cqi,16px)] font-medium leading-snug text-white">
             <p>Dentro de un mismo partido pueden presentarse varios candidatos.</p>
             <p>
               Los votos de todos ellos <Mark color={GOLD}>se suman</Mark> para obtener el resultado
@@ -63,7 +63,7 @@ export function Explainer({ onContinue }: { onContinue: () => void }) {
             </p>
           </div>
 
-          <div className="lema-example mt-[clamp(28px,3.6vh,44px)]">
+          <div className="lema-example mt-[clamp(8px,1.8svh,32px)]">
             <ExampleFrame label="EJEMPLO — PARTIDO AZUL" color={GOLD} ink="#1A1400">
               <div className="space-y-[clamp(3px,0.5vh,6px)]">
                 {CANDIDATES.map(([name, votes]) => (
@@ -80,10 +80,10 @@ export function Explainer({ onContinue }: { onContinue: () => void }) {
                 className="flex items-center justify-between gap-2 rounded-lg px-[clamp(8px,0.8vw,12px)] py-[clamp(5px,0.7vh,8px)] text-white"
                 style={{ background: GREEN }}
               >
-                <span className="whitespace-nowrap text-[clamp(11px,1vw,14px)] font-extrabold leading-none">
+                <span className="min-w-0 text-[clamp(11px,5.4cqi,14px)] font-extrabold leading-none">
                   Total Partido Azul
                 </span>
-                <span className="shrink-0 whitespace-nowrap text-[clamp(11px,1vw,14px)] font-black tabular-nums">
+                <span className="shrink-0 whitespace-nowrap text-[clamp(11px,5.4cqi,14px)] font-black tabular-nums">
                   250.000
                 </span>
               </div>
@@ -94,14 +94,14 @@ export function Explainer({ onContinue }: { onContinue: () => void }) {
         </article>
 
         <article
-          className="lema-panel lema-from-right row-span-4 grid min-w-0 grid-rows-subgrid rounded-2xl border-2 p-[clamp(12px,1.4vw,18px)] pb-[clamp(16px,2vh,22px)]"
+          className="lema-panel lema-from-right row-span-4 grid min-w-0 grid-rows-subgrid rounded-2xl border-2 p-[clamp(8px,2vw,16px)]"
           style={{ borderColor: RED, background: "rgba(225,6,0,0.045)", gridTemplateRows: "subgrid" }}
         >
           <Pill color={RED} ink="#fff" icon={<PersonIcon />}>
             SIN LEY DE LEMAS
           </Pill>
 
-          <div className="self-start pt-[clamp(8px,1vh,12px)] space-y-[clamp(4px,0.6vh,8px)] text-[clamp(14px,1.7vw,18px)] font-medium leading-snug text-white">
+          <div className="lema-copy self-start space-y-[clamp(4px,0.9cqi,8px)] pt-[clamp(8px,1.4cqi,12px)] text-[clamp(12px,6.6cqi,16px)] font-medium leading-snug text-white">
             <p>Cada partido presenta un único candidato.</p>
             <p>
               Los votos se cuentan por separado y gana quien <Mark color="#FF4D5A">obtiene más</Mark>.
@@ -112,7 +112,7 @@ export function Explainer({ onContinue }: { onContinue: () => void }) {
             </p>
           </div>
 
-          <div className="lema-example mt-[clamp(28px,3.6vh,44px)]">
+          <div className="lema-example mt-[clamp(8px,1.8svh,32px)]">
             <ExampleFrame label="LOS MISMOS VOTOS, OTRA REGLA" color={RED} ink="#fff">
               <div className="space-y-[clamp(3px,0.5vh,6px)]">
                 <VoteLine name="Partido Azul" detail="solo cuenta Candidato A" votes="120.000" />
@@ -131,11 +131,11 @@ export function Explainer({ onContinue }: { onContinue: () => void }) {
         </article>
       </div>
 
-      <div className="lema-action shrink-0 pt-[clamp(36px,6vh,64px)]">
+      <div className="lema-action shrink-0 pt-[clamp(8px,1.6svh,36px)]">
         <button
           type="button"
           onClick={onContinue}
-          className="w-full rounded-2xl py-[clamp(12px,1.6vh,16px)] text-[clamp(14px,1.15vw,16px)] font-black tracking-wide transition-transform active:scale-[0.99]"
+          className="w-full rounded-2xl py-[clamp(10px,1.4svh,16px)] text-[clamp(13px,3.4vw,16px)] font-black tracking-wide transition-transform active:scale-[0.99]"
           style={{ background: GOLD, color: "#1A1400" }}
         >
           Dar mi opinión
@@ -158,16 +158,16 @@ function Pill({
 }) {
   return (
     <div
-      className="inline-flex h-8 w-fit max-w-full shrink-0 items-center gap-1.5 self-start rounded-full py-0.5 pl-0.5 pr-3"
+      className="inline-flex h-[clamp(22px,8cqi,32px)] w-fit max-w-full shrink-0 items-center gap-1 self-start rounded-full py-0.5 pl-0.5 pr-2"
       style={{ background: color, color: ink }}
     >
       <span
-        className="grid h-7 w-7 shrink-0 place-items-center rounded-full"
+        className="grid aspect-square h-[80%] shrink-0 place-items-center rounded-full"
         style={{ background: "rgba(0,0,0,0.14)" }}
       >
         {icon}
       </span>
-      <span className="text-[clamp(10px,0.95vw,13px)] font-black tracking-wide">{children}</span>
+      <span className="whitespace-nowrap text-[clamp(10px,5.2cqi,13px)] font-black tracking-wide">{children}</span>
     </div>
   )
 }
@@ -186,7 +186,7 @@ function ExampleFrame({
   return (
     <div className="flex flex-col">
       <p
-        className="shrink-0 rounded-md px-2 py-1.5 text-center text-[clamp(9px,2.15vw,12px)] font-black leading-none tracking-wide"
+        className="shrink-0 rounded-md px-1.5 py-1 text-center text-[clamp(10px,4.8cqi,12px)] font-black leading-tight tracking-wide"
         style={{ background: color, color: ink }}
       >
         {label}
@@ -218,13 +218,13 @@ function VoteLine({
   return (
     <div className="vote-line rounded-lg px-2.5 py-[clamp(4px,0.55vh,7px)]" style={{ background: win ? "#D3122A" : ROW }}>
       <div className="min-w-0">
-        <p className="whitespace-nowrap text-[clamp(11px,0.95vw,14px)] font-bold leading-none text-white">{name}</p>
+        <p className="whitespace-nowrap text-[clamp(11px,5.6cqi,14px)] font-bold leading-none text-white">{name}</p>
         {detail && (
-          <p className="text-[clamp(9px,0.8vw,12px)] font-medium leading-tight text-white/70">{detail}</p>
+          <p className="text-[clamp(6.5px,3.4cqi,12px)] font-medium leading-tight text-white/70">{detail}</p>
         )}
       </div>
-      <div className="votes flex flex-col items-end gap-0.5">
-        <p className="whitespace-nowrap text-[clamp(12px,1vw,14px)] font-black tabular-nums leading-none text-white">
+      <div className="votes flex shrink-0 flex-col items-end gap-0.5">
+        <p className="whitespace-nowrap text-[clamp(11px,5.6cqi,14px)] font-black tabular-nums leading-none text-white">
           {votes}
         </p>
         {win && (
@@ -241,13 +241,13 @@ function Result({ tone, children }: { tone: "green" | "red"; children: ReactNode
   const background = tone === "green" ? "#178A3E" : RED
   return (
     <div
-      className="lema-result mt-[clamp(18px,2.4vh,26px)] flex min-h-[52px] items-center gap-2 self-stretch rounded-xl px-3 py-[clamp(8px,1vh,12px)] text-white"
+      className="lema-result mt-[clamp(8px,1.2svh,20px)] flex items-center gap-2 self-stretch rounded-xl px-2.5 py-[clamp(6px,1svh,12px)] text-white"
       style={{ background }}
     >
       <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-white/15">
         <TrophyIcon />
       </span>
-      <p className="min-w-0 text-[clamp(11px,0.95vw,14px)] font-extrabold leading-snug">{children}</p>
+      <p className="min-w-0 text-[clamp(11px,5.2cqi,14px)] font-extrabold leading-snug">{children}</p>
     </div>
   )
 }
