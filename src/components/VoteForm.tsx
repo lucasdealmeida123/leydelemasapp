@@ -40,30 +40,34 @@ export default function VoteForm() {
         {(["acepta", "no_acepta"] as const).map((opt) => {
           const isAcepta = opt === "acepta"
           const isSelected = selected === opt
-          const label = isAcepta ? "ACEPTO" : "NO ACEPTO"
-          const icon = isAcepta ? "✓" : "✗"
           const color = isAcepta ? "#4ade80" : "#f87171"
           const borderSelected = isAcepta ? "rgba(74,222,128,0.7)" : "rgba(248,113,113,0.7)"
           const borderIdle = isAcepta ? "rgba(74,222,128,0.15)" : "rgba(248,113,113,0.15)"
-          const bgSelected = isAcepta ? "rgba(74,222,128,0.1)" : "rgba(248,113,113,0.1)"
+          const bgSelected = isAcepta ? "rgba(74,222,128,0.08)" : "rgba(248,113,113,0.08)"
+          const desc = isAcepta
+            ? "Los votos del mismo partido se suman para definir al ganador"
+            : "Cada partido compite con un solo candidato, sin acumular votos"
 
           return (
             <button
               key={opt}
               onClick={() => { setSelected(opt); setError("") }}
-              className="rounded-2xl py-7 flex flex-col items-center gap-2.5 transition-all border"
+              className="rounded-2xl p-4 flex flex-col items-start gap-2 transition-all border text-left"
               style={{
-                background: isSelected ? bgSelected : "var(--loop-surface)",
+                background: isSelected ? bgSelected : "#141825",
                 borderColor: isSelected ? borderSelected : borderIdle,
-                transform: isSelected ? "scale(1.03)" : "scale(1)",
+                transform: isSelected ? "scale(1.02)" : "scale(1)",
               }}
             >
-              <span className="text-3xl font-black" style={{ color }}>
-                {icon}
+              <span className="text-3xl font-black leading-none" style={{ color }}>
+                {isAcepta ? "SI" : "NO"}
               </span>
-              <span className="font-black text-base tracking-wide text-white">
-                {label}
+              <span className="text-[10px] font-black uppercase tracking-widest" style={{ color }}>
+                {isAcepta ? "A favor" : "En contra"}
               </span>
+              <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
+                {desc}
+              </p>
             </button>
           )
         })}
