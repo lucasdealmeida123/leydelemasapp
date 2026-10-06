@@ -63,7 +63,7 @@ export function Explainer({ onContinue }: { onContinue: () => void }) {
             </p>
           </div>
 
-          <div className="mt-[clamp(28px,3.6vh,44px)]">
+          <div className="lema-example mt-[clamp(28px,3.6vh,44px)]">
             <ExampleFrame label="EJEMPLO — PARTIDO AZUL" color={GOLD} ink="#1A1400">
               <div className="space-y-[clamp(3px,0.5vh,6px)]">
                 {CANDIDATES.map(([name, votes]) => (
@@ -112,7 +112,7 @@ export function Explainer({ onContinue }: { onContinue: () => void }) {
             </p>
           </div>
 
-          <div className="mt-[clamp(28px,3.6vh,44px)]">
+          <div className="lema-example mt-[clamp(28px,3.6vh,44px)]">
             <ExampleFrame label="LOS MISMOS VOTOS, OTRA REGLA" color={RED} ink="#fff">
               <div className="space-y-[clamp(3px,0.5vh,6px)]">
                 <VoteLine name="Partido Azul" detail="solo cuenta Candidato A" votes="120.000" />
@@ -241,7 +241,7 @@ function Result({ tone, children }: { tone: "green" | "red"; children: ReactNode
   const background = tone === "green" ? "#178A3E" : RED
   return (
     <div
-      className="mt-[clamp(18px,2.4vh,26px)] flex min-h-[52px] items-center gap-2 self-stretch rounded-xl px-3 py-[clamp(8px,1vh,12px)] text-white"
+      className="lema-result mt-[clamp(18px,2.4vh,26px)] flex min-h-[52px] items-center gap-2 self-stretch rounded-xl px-3 py-[clamp(8px,1vh,12px)] text-white"
       style={{ background }}
     >
       <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-white/15">

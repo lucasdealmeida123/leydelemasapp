@@ -56,6 +56,30 @@
   grid-template-rows: auto auto auto auto;
 }
 
+/* En el celular la barra del navegador tapa el botón si las tarjetas bajan demasiado. */
+@media (max-width: 760px) {
+  .lema-screen {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .lema-title {
+    padding-bottom: 10px;
+  }
+
+  .lema-action {
+    padding-top: 8px;
+  }
+
+  .lema-example {
+    margin-top: 10px;
+  }
+
+  .lema-result {
+    margin-top: 8px;
+  }
+}
+
 /* Solo en pantalla ancha las tarjetas crecen. En una ventana alta no se estiran: eso dejaba el vacío de abajo. */
 @media (min-aspect-ratio: 5/4) {
   .lema-screen {
