@@ -33,77 +33,95 @@ export default function VoteForm() {
     router.push(`/gracias?v=${selected}`)
   }
 
-  if (!selected) {
-    return (
-      <div className="grid grid-cols-2 gap-4">
-        <button
-          onClick={() => setSelected("acepta")}
-          className="flex flex-col items-center gap-3 bg-green-600 hover:bg-green-500 active:scale-95 transition-all rounded-2xl p-6 font-black text-xl text-white shadow-lg shadow-green-900/40"
-        >
-          <span className="text-4xl">✅</span>
-          <span>ACEPTO</span>
-        </button>
-        <button
-          onClick={() => setSelected("no_acepta")}
-          className="flex flex-col items-center gap-3 bg-red-600 hover:bg-red-500 active:scale-95 transition-all rounded-2xl p-6 font-black text-xl text-white shadow-lg shadow-red-900/40"
-        >
-          <span className="text-4xl">❌</span>
-          <span>NO ACEPTO</span>
-        </button>
-      </div>
-    )
-  }
-
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
-      <div
-        className={`flex items-center justify-between rounded-xl px-4 py-3 ${
-          selected === "acepta"
-            ? "bg-green-900/40 border border-green-600"
-            : "bg-red-900/40 border border-red-600"
-        }`}
-      >
-        <span className="font-bold text-lg">
-          {selected === "acepta" ? "✅ ACEPTO" : "❌ NO ACEPTO"}
-        </span>
-        <button
-          type="button"
-          onClick={() => { setSelected(null); setError("") }}
-          className="text-slate-400 hover:text-white text-sm underline underline-offset-2"
-        >
-          Cambiar
-        </button>
+    <div className="space-y-4">
+      {/* Option buttons */}
+      <div className="grid grid-cols-2 gap-3">
+        {(["acepta", "no_acepta"] as const).map((opt) => {
+          const isAcepta = opt === "acepta"
+          const isSelected = selected === opt
+          const label = isAcepta ? "ACEPTO" : "NO ACEPTO"
+          const icon = isAcepta ? "✓" : "✗"
+          const color = isAcepta ? "#4ade80" : "#f87171"
+          const borderSelected = isAcepta ? "rgba(74,222,128,0.7)" : "rgba(248,113,113,0.7)"
+          const borderIdle = isAcepta ? "rgba(74,222,128,0.15)" : "rgba(248,113,113,0.15)"
+          const bgSelected = isAcepta ? "rgba(74,222,128,0.1)" : "rgba(248,113,113,0.1)"
+
+          return (
+            <button
+              key={opt}
+              onClick={() => { setSelected(opt); setError("") }}
+              className="rounded-2xl py-7 flex flex-col items-center gap-2.5 transition-all border"
+              style={{
+                background: isSelected ? bgSelected : "var(--loop-surface)",
+                borderColor: isSelected ? borderSelected : borderIdle,
+                transform: isSelected ? "scale(1.03)" : "scale(1)",
+              }}
+            >
+              <span className="text-3xl font-black" style={{ color }}>
+                {icon}
+              </span>
+              <span className="font-black text-base tracking-wide text-white">
+                {label}
+              </span>
+            </button>
+          )
+        })}
       </div>
 
-      <div>
-        <label className="block text-sm text-slate-400 mb-2">
-          Número de teléfono
-        </label>
-        <input
-          type="tel"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          placeholder="Ej: 3764 123456"
-          className="w-full bg-slate-700 border border-slate-600 rounded-xl px-4 py-3 text-white text-lg placeholder:text-slate-500 focus:outline-none focus:border-blue-500"
-          autoFocus
-          required
-        />
-        <p className="text-xs text-slate-500 mt-1">Solo se usa para evitar votos duplicados</p>
-      </div>
+      {/* Phone input — shown after selection */}
+      {selected && (
+        <form onSubmit={handleSubmit} className="space-y-3 pt-1">
+          <div>
+            <label
+              className="block text-xs font-bold uppercase tracking-widest mb-2"
+              style={{ color: "rgba(255,255,255,0.4)" }}
+            >
+              Número de teléfono
+            </label>
+            <input
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="Ej: 3764 123456"
+              className="w-full rounded-xl px-4 py-3.5 text-white text-base focus:outline-none transition-colors border"
+              style={{
+                background: "#0B0E14",
+                borderColor: "rgba(255,255,255,0.12)",
+              }}
+              onFocus={(e) => (e.currentTarget.style.borderColor = "#7C5FFF")}
+              onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)")}
+              autoFocus
+              required
+            />
+            <p className="text-xs mt-1.5" style={{ color: "rgba(255,255,255,0.25)" }}>
+              Solo se usa para evitar votos duplicados
+            </p>
+          </div>
 
-      {error && (
-        <div className="bg-red-900/40 border border-red-500 rounded-xl px-4 py-3 text-red-300 text-sm">
-          {error}
-        </div>
+          {error && (
+            <div
+              className="rounded-xl px-4 py-3 text-sm border"
+              style={{
+                background: "rgba(248,113,113,0.08)",
+                borderColor: "rgba(248,113,113,0.25)",
+                color: "#f87171",
+              }}
+            >
+              {error}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            disabled={loading || !phone.trim()}
+            className="w-full font-black text-base rounded-xl py-4 transition-all active:scale-95 disabled:opacity-40"
+            style={{ background: "#7C5FFF", color: "white" }}
+          >
+            {loading ? "Registrando..." : "Confirmar voto →"}
+          </button>
+        </form>
       )}
-
-      <button
-        type="submit"
-        disabled={loading || !phone.trim()}
-        className="w-full bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors rounded-xl py-4 font-bold text-lg"
-      >
-        {loading ? "Registrando..." : "Confirmar voto →"}
-      </button>
-    </form>
+    </div>
   )
 }

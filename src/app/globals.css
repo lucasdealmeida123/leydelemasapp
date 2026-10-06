@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --loop-bg:      #0B0E14;
+    --loop-surface: #111520;
+    --loop-violet:  #7C5FFF;
+    --loop-green:   #B6FF6E;
+    --loop-border:  rgba(255, 255, 255, 0.08);
+  }
+
+  body {
+    background-color: var(--loop-bg);
+    color: white;
+  }
+}

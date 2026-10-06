@@ -1,160 +1,223 @@
+"use client"
+
+import { useState } from "react"
 import VoteForm from "@/components/VoteForm"
 
-export default function Home() {
-  return (
-    <main className="min-h-screen bg-[#0a0f1e] text-white">
+const BORDER = "rgba(255,255,255,0.07)"
+const SURFACE = "#141825"
 
-      {/* Header */}
-      <header className="bg-[#0d1426] border-b border-white/10 px-4 py-4">
-        <div className="max-w-2xl mx-auto flex items-center justify-between">
-          <div>
-            <span className="text-xs font-bold tracking-[0.2em] text-blue-400 uppercase">Loop Noticias</span>
-            <h1 className="text-xl font-black uppercase tracking-tight leading-none mt-0.5">
-              Ley de Lemas
-            </h1>
-          </div>
-          <div className="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide animate-pulse">
-            Encuesta activa
-          </div>
+export default function Home() {
+  const [step, setStep] = useState<"intro" | "vote">("intro")
+
+  return (
+    <main className="min-h-screen flex flex-col" style={{ background: "#0B0E14" }}>
+
+      {/* HEADER */}
+      <header className="px-5 py-3.5 shrink-0" style={{ borderBottom: `1px solid ${BORDER}` }}>
+        <div className="max-w-lg mx-auto flex items-center gap-3">
+          <div className="w-[3px] h-5 rounded-full" style={{ background: "#B6FF6E" }} />
+          <span className="font-black text-sm tracking-[0.14em] uppercase" style={{ color: "#B6FF6E" }}>
+            Loop Noticias
+          </span>
         </div>
       </header>
 
-      <div className="max-w-2xl mx-auto px-4 py-6 space-y-6">
+      {/* INTRO */}
+      {step === "intro" && (
+        <section className="flex-1 flex flex-col max-w-lg mx-auto w-full px-4 py-6 pb-10">
 
-        {/* Hero question */}
-        <div className="text-center pt-2">
-          <h2 className="text-2xl font-black leading-tight">
-            ¿Qué cambia con la<br />
-            <span className="text-blue-400">Ley de Lemas?</span>
-          </h2>
-          <p className="text-slate-400 mt-2 text-sm">
-            Un ejemplo real para entender el sistema
-          </p>
-        </div>
-
-        {/* Visual scenario */}
-        <div className="bg-[#111827] rounded-2xl overflow-hidden border border-white/10">
-          <div className="px-5 py-3 border-b border-white/10">
-            <p className="text-xs text-slate-400 uppercase tracking-widest text-center">
-              Mismo escenario · Distintos resultados
-            </p>
+          {/* Etiqueta + Título */}
+          <div className="mb-6">
+            <h1 className="text-4xl font-black text-white leading-[1.05]">
+              ¿Qué es la<br />
+              <span style={{ color: "#B6FF6E" }}>Ley de Lemas?</span>
+            </h1>
           </div>
 
-          {/* Candidates row */}
-          <div className="p-5">
-            <p className="text-xs text-slate-500 uppercase tracking-wide mb-3">Votos emitidos</p>
-            <div className="space-y-2">
-              {/* Partido A - multiple */}
-              <div>
-                <div className="flex gap-2 mb-1">
-                  <div className="flex-1 bg-blue-900/40 border border-blue-700/50 rounded-xl px-3 py-2 flex justify-between items-center">
-                    <span className="text-sm text-blue-300">Cand. A1</span>
-                    <span className="font-bold text-white">120k</span>
-                  </div>
-                  <div className="flex-1 bg-blue-900/40 border border-blue-700/50 rounded-xl px-3 py-2 flex justify-between items-center">
-                    <span className="text-sm text-blue-300">Cand. A2</span>
-                    <span className="font-bold text-white">80k</span>
-                  </div>
-                  <div className="flex-1 bg-blue-900/40 border border-blue-700/50 rounded-xl px-3 py-2 flex justify-between items-center">
-                    <span className="text-sm text-blue-300">Cand. A3</span>
-                    <span className="font-bold text-white">50k</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-1 text-xs text-slate-400 px-1">
-                  <div className="h-px flex-1 bg-blue-800/40"></div>
-                  <span className="text-blue-400">Partido Azul</span>
-                  <div className="h-px flex-1 bg-blue-800/40"></div>
-                </div>
-              </div>
-
-              <div className="bg-red-900/30 border border-red-700/40 rounded-xl px-4 py-2.5 flex justify-between items-center">
-                <span className="text-sm text-red-300">Partido Rojo</span>
-                <span className="font-bold text-white">180k votos</span>
-              </div>
-
-              <div className="bg-yellow-900/30 border border-yellow-700/40 rounded-xl px-4 py-2.5 flex justify-between items-center">
-                <span className="text-sm text-yellow-300">Partido Amarillo</span>
-                <span className="font-bold text-white">90k votos</span>
-              </div>
-            </div>
-          </div>
-
-          {/* CON vs SIN result */}
-          <div className="grid grid-cols-2 divide-x divide-white/10 border-t border-white/10">
-            <div className="p-4 bg-blue-950/30">
-              <p className="text-xs font-bold text-blue-400 uppercase tracking-wide mb-3 text-center">
-                CON Ley de Lemas
+          {/* === CON LEY === */}
+          <div
+            className="rounded-2xl overflow-hidden mb-4"
+            style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderTop: "3px solid #B6FF6E" }}
+          >
+            {/* Cabecera */}
+            <div className="px-5 pt-4 pb-3" style={{ borderBottom: `1px solid ${BORDER}` }}>
+              <span
+                className="inline-block text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded mb-2"
+                style={{ background: "rgba(182,255,110,0.12)", color: "#B6FF6E" }}
+              >
+                Con Ley de Lemas
+              </span>
+              <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+                Dentro de un mismo partido pueden presentarse <strong className="text-white font-bold">varios candidatos</strong>. Los votos de todos ellos <strong className="text-white font-bold">se suman</strong> para obtener el resultado final del partido. Gana el partido que acumula más votos en total, aunque ninguno de sus candidatos haya sido el más votado individualmente.
               </p>
-              <div className="text-center mb-3">
-                <p className="text-xs text-slate-400">Partido Azul suma sus candidatos</p>
-                <p className="text-2xl font-black text-blue-400 mt-1">250k</p>
-              </div>
-              <div className="bg-blue-600 rounded-lg px-3 py-2 text-center">
-                <p className="text-xs font-black">🏆 GANA PARTIDO AZUL</p>
-              </div>
-              <div className="mt-3 space-y-1 text-xs text-center text-slate-400">
-                <div className="flex justify-between">
-                  <span>Partido Azul</span><span className="text-blue-400 font-bold">5 bancas</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Partido Rojo</span><span>3 bancas</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Partido Amarillo</span><span>2 bancas</span>
-                </div>
-              </div>
             </div>
 
-            <div className="p-4 bg-red-950/20">
-              <p className="text-xs font-bold text-red-400 uppercase tracking-wide mb-3 text-center">
-                SIN Ley de Lemas
+            {/* Ejemplo */}
+            <div className="px-5 py-4">
+              <p className="text-[10px] font-black uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.25)" }}>
+                Ejemplo — Partido Azul
               </p>
-              <div className="text-center mb-3">
-                <p className="text-xs text-slate-400">Un candidato por partido</p>
-                <p className="text-2xl font-black text-red-400 mt-1">180k</p>
+              <div className="space-y-2 mb-3">
+                {[
+                  { name: "Candidato A", votes: "120.000" },
+                  { name: "Candidato B", votes: "80.000" },
+                  { name: "Candidato C", votes: "50.000" },
+                ].map((c, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center justify-between px-4 py-3 rounded-xl"
+                    style={{ background: "rgba(255,255,255,0.04)", border: `1px solid ${BORDER}` }}
+                  >
+                    <span className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>{c.name}</span>
+                    <span className="text-sm font-black text-white">{c.votes} votos</span>
+                  </div>
+                ))}
               </div>
-              <div className="bg-red-600 rounded-lg px-3 py-2 text-center">
-                <p className="text-xs font-black">🏆 GANA PARTIDO ROJO</p>
+              <div className="flex items-center gap-2 my-3">
+                <div className="flex-1 h-px" style={{ background: "rgba(182,255,110,0.2)" }} />
+                <span className="text-[10px] font-semibold" style={{ color: "rgba(182,255,110,0.45)" }}>se suman</span>
+                <div className="flex-1 h-px" style={{ background: "rgba(182,255,110,0.2)" }} />
               </div>
-              <div className="mt-3 space-y-1 text-xs text-center text-slate-400">
-                <div className="flex justify-between">
-                  <span>Partido Azul</span><span>2 bancas</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Partido Rojo</span><span className="text-red-400 font-bold">4 bancas</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Partido Amarillo</span><span>2 bancas</span>
-                </div>
+              <div
+                className="flex items-center justify-between px-4 py-3 rounded-xl mb-4"
+                style={{ background: "rgba(182,255,110,0.08)", border: "1px solid rgba(182,255,110,0.25)" }}
+              >
+                <span className="text-sm font-bold" style={{ color: "#B6FF6E" }}>Total Partido Azul</span>
+                <span className="text-xl font-black text-white">250.000 votos</span>
+              </div>
+              <div
+                className="px-4 py-2.5 rounded-xl text-center"
+                style={{ background: "rgba(182,255,110,0.08)", border: "1px solid rgba(182,255,110,0.2)" }}
+              >
+                <span className="text-sm font-black" style={{ color: "#B6FF6E" }}>Partido Azul gana con 250.000 votos</span>
               </div>
             </div>
           </div>
 
-          <div className="px-5 py-3 bg-amber-950/30 border-t border-amber-700/30">
-            <p className="text-amber-300 text-xs text-center font-semibold">
-              ⚡ Los mismos votos dan un ganador diferente según el sistema que se use
+          {/* === SIN LEY === */}
+          <div
+            className="rounded-2xl overflow-hidden mb-5"
+            style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderTop: "3px solid #FF1F36" }}
+          >
+            {/* Cabecera */}
+            <div className="px-5 pt-4 pb-3" style={{ borderBottom: `1px solid ${BORDER}` }}>
+              <span
+                className="inline-block text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded mb-2"
+                style={{ background: "rgba(255,31,54,0.12)", color: "#FF1F36" }}
+              >
+                Sin Ley de Lemas
+              </span>
+              <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+                Cada partido presenta <strong className="text-white font-bold">un único candidato</strong>. Los votos se cuentan por separado y gana quien obtiene más. <strong className="text-white font-bold">No se pueden sumar</strong> los votos de distintos candidatos del mismo partido.
+              </p>
+            </div>
+
+            {/* Ejemplo */}
+            <div className="px-5 py-4">
+              <p className="text-[10px] font-black uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.25)" }}>
+                Los mismos votos, otra regla
+              </p>
+              <div className="space-y-2 mb-4">
+                {[
+                  { name: "Partido Azul", note: "solo cuenta Candidato A", votes: "120.000", wins: false },
+                  { name: "Partido Rojo", note: "candidato único", votes: "180.000", wins: true },
+                  { name: "Partido Amarillo", note: "candidato único", votes: "90.000", wins: false },
+                ].map((c, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center justify-between px-4 py-3 rounded-xl"
+                    style={{
+                      background: c.wins ? "rgba(255,31,54,0.08)" : "rgba(255,255,255,0.03)",
+                      border: `1px solid ${c.wins ? "rgba(255,31,54,0.3)" : BORDER}`,
+                    }}
+                  >
+                    <div>
+                      <p className="text-sm font-bold" style={{ color: c.wins ? "#fff" : "rgba(255,255,255,0.45)" }}>
+                        {c.name}
+                      </p>
+                      <p className="text-[10px]" style={{ color: "rgba(255,255,255,0.2)" }}>{c.note}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm font-black" style={{ color: c.wins ? "#fff" : "rgba(255,255,255,0.35)" }}>
+                        {c.votes}
+                      </p>
+                      {c.wins && (
+                        <p className="text-[10px] font-black" style={{ color: "#FF1F36" }}>GANA</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div
+                className="px-4 py-3 rounded-xl text-center"
+                style={{ background: "rgba(255,31,54,0.06)", border: "1px solid rgba(255,31,54,0.2)" }}
+              >
+                <p className="text-sm font-black" style={{ color: "#FF6B7A" }}>
+                  Partido Rojo gana con 180.000 votos
+                </p>
+                <p className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.3)" }}>
+                  aunque Partido Azul acumuló 250.000 entre sus candidatos
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Conclusión */}
+          <div
+            className="px-5 py-4 rounded-2xl mb-6 text-center"
+            style={{ background: SURFACE, border: `1px solid ${BORDER}` }}
+          >
+            <p className="text-base font-black text-white leading-snug">
+              Los mismos votos. La misma gente.
+            </p>
+            <p className="text-base font-black leading-snug" style={{ color: "#B6FF6E" }}>
+              Distinto ganador.
+            </p>
+            <p className="text-xs mt-2" style={{ color: "rgba(255,255,255,0.3)" }}>
+              La Ley de Lemas cambia quién gana, no cuántos votan.
             </p>
           </div>
-        </div>
 
-        {/* Vote section */}
-        <div className="bg-[#111827] rounded-2xl border border-white/10 overflow-hidden">
-          <div className="px-5 pt-5 pb-4 text-center border-b border-white/10">
-            <h3 className="text-xl font-black">¿Qué opinás?</h3>
-            <p className="text-slate-400 text-sm mt-1">
-              ¿Estás de acuerdo con la Ley de Lemas en Misiones?
+          <button
+            onClick={() => setStep("vote")}
+            className="w-full font-black text-base rounded-2xl py-4 tracking-wide transition-all active:scale-95"
+            style={{ background: "#B6FF6E", color: "#0B0E14" }}
+          >
+            Dar mi opinión
+          </button>
+        </section>
+      )}
+
+      {/* VOTE */}
+      {step === "vote" && (
+        <section className="flex-1 flex flex-col max-w-lg mx-auto w-full px-4 py-6 pb-10">
+          <div className="mb-8">
+            <span
+              className="inline-block text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md mb-3"
+              style={{ background: "rgba(124,95,255,0.15)", color: "#7C5FFF" }}
+            >
+              Tu opinión
+            </span>
+            <h2 className="text-3xl font-black text-white leading-tight">
+              ¿Estás de acuerdo<br />con la Ley de Lemas?
+            </h2>
+            <p className="text-sm mt-2" style={{ color: "rgba(255,255,255,0.35)" }}>
+              Seleccioná una opción e ingresá tu teléfono
             </p>
           </div>
-          <div className="p-5">
-            <VoteForm />
-          </div>
-        </div>
 
-      </div>
+          <VoteForm />
 
-      <footer className="text-center text-slate-700 text-xs py-6">
-        Loop Noticias · Encuesta informativa · Los datos son confidenciales
-      </footer>
+          <button
+            onClick={() => setStep("intro")}
+            className="text-sm text-center mt-5"
+            style={{ color: "rgba(255,255,255,0.25)" }}
+          >
+            ← Volver
+          </button>
+        </section>
+      )}
+
     </main>
   )
 }
